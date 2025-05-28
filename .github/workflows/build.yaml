@@ -4,12 +4,16 @@ on:
   push:
     branches: [main]
 
+defaults:
+  run:
+    shell: bash
+    working-directory: ./apps/api
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
     permissions:
       contents: write  # Required to push back to the repo
-
     steps:
       - uses: actions/checkout@v3
         with:
