@@ -106,7 +106,7 @@ jobs:
       - name: Update Deployment Manifest
         working-directory: .
         run: |
-          IMAGE_TAG=${{ fromJSON(steps.meta.outputs.json).tags[-1] }}
+          IMAGE_TAG=${{ fromJSON(steps.meta.outputs.json).tags[1] }}
           echo "Using image tag: $IMAGE_TAG"
           sed -i "s|image: .*|image: $IMAGE_TAG|" k8s/api-deployment.yaml
 
