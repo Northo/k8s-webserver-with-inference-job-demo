@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: ghcr.io/northo/k8s-webserver-with-inference-job-demo:5b0faf93313008828570e4243fb0e143f5b0dea8
+          image: ghcr.io/northo/k8s-webserver-with-inference-job-demo:9bc7dcc2380011d374691d948aadf2af80f75c1f
           ports:
             - containerPort: 8000
           resources:
