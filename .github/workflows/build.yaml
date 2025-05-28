@@ -32,10 +32,12 @@ jobs:
           echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
 
       - name: Update Deployment Manifest
+        working-directory: .
         run: |
           sed -i "s|image: .*|image: $IMAGE_TAG|" k8s/api-deployment.yaml
 
       - name: Commit and Push Manifest Update
+        working-directory: .
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
