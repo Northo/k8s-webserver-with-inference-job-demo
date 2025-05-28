@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required to push back to the repo
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Ensure full history for committing back
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build and Push Docker Image
+        run: |
+          IMAGE_TAG=ghcr.io/${{ github.repository }}:${{ github.sha }}
+          docker build -t $IMAGE_TAG .
+          docker push $IMAGE_TAG
+          echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
+
+      - name: Update Deployment Manifest
+        run: |
+          sed -i "s|image: .*|image: $IMAGE_TAG|" k8s/api-deployment.yaml
+
+      - name: Commit and Push Manifest Update
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add k8s/api-deployment.yaml
+          git commit -m "Update image to $IMAGE_TAG" || echo "No changes to commit"
+          git push
