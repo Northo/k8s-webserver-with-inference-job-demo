@@ -16,6 +16,9 @@ spec:
       containers:
         - name: app
           image: ghcr.io/northo/k8s-webserver-with-inference-job-demo:sha-6909150
+          env:
+            - name: ARGO_HOST
+              value: "http://argo-server.argo.svc:2746"
           ports:
             - containerPort: 8000
           resources:
