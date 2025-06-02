@@ -6,16 +6,6 @@ from hera.workflows.models import WorkflowTemplateRef
 app = FastAPI()
 
 
-@app.post("/submit-job")
-def submit_job():
-    job_name = f"job-{uuid.uuid4().hex[:8]}"
-
-    Workflow(
-        generate_naem="test-",
-        entrypoint="print-message",
-        namespace="default",
-        workflow_template_ref=WorkflowTemplateRef(name="workflow-template-submittable"),
-    ).create()
 
     # job = client.V1Job(
     #     metadata=client.V1ObjectMeta(name=job_name),
@@ -64,6 +54,10 @@ def main():
         #     echo(arguments={"message": "Hello world!"})
 
     w.create()
+
+@app.post("/submit-job")
+def submit_job():
+    main()
 
     
 if __name__ == "__main__":
