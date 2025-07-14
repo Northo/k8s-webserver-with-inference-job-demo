@@ -30,3 +30,9 @@ kubectl apply -f argo-cd.yaml
 ```
 
 And ...
+
+
+## Good resources
+
+- https://github.com/argoproj/argocd-example-apps/tree/master
+- https://github.com/argoproj/argoproj-deployments/tree/master
