@@ -1,0 +1,7 @@
+site_name: k8s demonstration
+markdown_extensions:
+  - attr_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+theme:
+  name: material
