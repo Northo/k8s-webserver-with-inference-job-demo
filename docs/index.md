@@ -9,9 +9,9 @@ The main purpose, is to see how viable it is as an alternative for small scale p
 
 Initial setup:
 
-- [ ] Terraform setup for AKS (Azure Kubernetes Service) k8s cluster
-- [ ] ArgoCD setup
-- [ ] Argo Workflows managed by ArgoCD
+- [x] Terraform setup for AKS (Azure Kubernetes Service) k8s cluster
+- [x] ArgoCD setup
+- [x] Argo Workflows managed by ArgoCD
 - [ ] Pass large data to inference job
 - [ ] Return large data from inference job
 
@@ -64,6 +64,11 @@ And we can now finally deploy the demo application:
 kubectl apply -f k8s/demo/application.yaml
 ```
 
+We'll now set up Argo Workflows:
+
+```bash
+kubectl apply -f k8s/argo-workflows/application.yaml -n argocd
+```
 
 
 
