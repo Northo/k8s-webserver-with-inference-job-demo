@@ -17,6 +17,8 @@ spec:
         artifacts:
           - name: the-script
             path: /app/main.py
+            s3:
+              key: "{{workflow.uid}}"
       container:
         image: busybox
         command: [echo]
