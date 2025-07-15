@@ -7,29 +7,64 @@ The main purpose, is to see how viable it is as an alternative for small scale p
 
 ## Goals
 
+Initial setup:
+
 - [ ] Terraform setup for AKS (Azure Kubernetes Service) k8s cluster
-- [ ] ArgoCD setup for CI/CD
+- [ ] ArgoCD setup
+- [ ] Argo Workflows managed by ArgoCD
+- [ ] Pass large data to inference job
+- [ ] Return large data from inference job
+
+Long term:
+
 - [ ] Separate environments for dev, staging, and production
 - [ ] Job with on-demand GPU node
 
 ## Getting started
 
-To get started, set up the cluster
+To get started, set up the cluster, navigate to the `infrastructure/terraform` directory, and run the following commands:
 
 ```bash
-cd terraform
 terraform init
 terraform apply
 ```
 
-Then set up the ArgoCD
+Then, to get CLI access, run: `az aks get-credentials --resource-group k8s-demo-application --name aks-cluster`.
+See the [Azure documentation](https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-cli) for more details.
+
+!!! tip
+
+    Run `source <(kubectl completion zsh)` to enable command completion for `kubectl` in your terminal.
+
+Then set up the ArgoCD (see more details in [the official documentation](https://argo-cd.readthedocs.io/en/stable/getting_started/)):
 
 ```bash
-cd argocd
-kubectl apply -f argo-cd.yaml
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+# Expose the ArgoCD API server
+kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
 
-And ...
+and navigate to `https://localhost:8080` in your browser.
+
+!!! tip "Notice the explicit `https` protocol"
+
+!!! note "Getting credentials"
+
+    ```bash
+    argocd admin initial-password -n argocd
+    argocd login <ARGOCD_SERVER>  # localhost:8080 if port-forwarded as above
+    argocd account update-password
+    ```
+
+And we can now finally deploy the demo application:
+
+```bash
+kubectl apply -f k8s/demo/application.yaml
+```
+
+
 
 
 ## Good resources
