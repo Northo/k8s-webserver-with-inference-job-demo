@@ -16,7 +16,7 @@ spec:
       outputs:
         artifacts:
           - name: the-script
-            path: /tmp/message.txt"
+            path: /tmp/message.txt
             s3:
               key: "{{workflow.uid}}"
       container:
