@@ -1,0 +1,21 @@
+# k8s/argo-workflows-app.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-workflows-system
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Northo/k8s-webserver-with-inference-job-demo
+    targetRevision: main
+    path: k8s/argo-workflows
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
