@@ -3,5 +3,8 @@ markdown_extensions:
   - attr_list
   - pymdownx.tasklist:
       custom_checkbox: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
 theme:
   name: material
