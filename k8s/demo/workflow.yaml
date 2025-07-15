@@ -16,10 +16,10 @@ spec:
       outputs:
         artifacts:
           - name: the-script
-            path: /tmp/message.txt
+            path: /app/message.txt
             s3:
               key: "{{workflow.uid}}"
       container:
         image: busybox
         command: [sh, -c]
-        args: ["echo {{inputs.parameters.message}} | tee /tmp/message.txt"]
+        args: ["echo {{inputs.parameters.message}} | tee /app/message.txt"]
