@@ -13,6 +13,10 @@ spec:
       inputs:
         parameters:
           - name: message
+      outputs:
+        artifacts:
+          - name: the-script
+            path: /app/main.py
       container:
         image: busybox
         command: [echo]
