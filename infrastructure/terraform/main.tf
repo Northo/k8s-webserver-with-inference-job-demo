@@ -20,5 +20,5 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "main" {
   name     = "k8s-demo-application"
-  location = "norway east"
+  location = "north europe"
 }

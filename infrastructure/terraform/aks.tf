@@ -19,19 +19,22 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 }
 
-resource "azurerm_kubernetes_cluster_node_pool" "gpu" {
-  name                  = "gpu"
-  kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
-  vm_size               = "standard_nc6s_v3"
-  node_count            = 0
-  auto_scaling_enabled  = true
-  min_count             = 0
-  max_count             = 3
-  tags = {
-    environment = "development"
-  }
+## There are problems with getting GPUs, due to quotas.
+## For now, we will not use GPU nodes.
 
-  node_taints = [
-    "key=gpu:NoSchedule",
-  ]
-}
+# resource "azurerm_kubernetes_cluster_node_pool" "gpu" {
+#   name                  = "gpu"
+#   kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
+#   vm_size               = "standard_nc4as_t4_v3"
+#   node_count            = 0
+#   auto_scaling_enabled  = true
+#   min_count             = 0
+#   max_count             = 3
+#   tags = {
+#     environment = "development"
+#   }
+
+#   node_taints = [
+#     "key=gpu:NoSchedule",
+#   ]
+# }
