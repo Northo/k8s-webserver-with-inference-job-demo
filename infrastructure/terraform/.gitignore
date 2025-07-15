@@ -5,6 +5,9 @@
 *.tfstate
 *.tfstate.*
 
+# Normally, we'd want to check this in, but as it is a public demo, we will ignore it
+.terraform.lock.hcl
+
 # Crash log files
 crash.log
 crash.*.log
