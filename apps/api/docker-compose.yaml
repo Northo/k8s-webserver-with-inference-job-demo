@@ -1,0 +1,10 @@
+services:
+  api:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    environment:
+      - ARGO_HOST=https://host.docker.internal:2746
+
+      
