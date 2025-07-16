@@ -17,6 +17,13 @@ spec:
       containers:
         - name: api
           image: ghcr.io/northo/k8s-webserver-with-inference-job-demo-api:sha-34d3007
+          command: ["uvicorn", "main:app"]
+          args:
+            - --host
+            - "0.0.0.0"
+            - --port
+            - "80"
+            - --root-path=/demo-api
           env:
             - name: ARGO_HOST
               value: "https://argo-server.argo.svc:2746"
