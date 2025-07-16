@@ -18,6 +18,8 @@ spec:
           - name: modified-message
             globalName: modified-message
             path: /tmp/message-out.txt
+            archive:
+              none: {}
       container:
         image: busybox
         command: [sh, -c]
