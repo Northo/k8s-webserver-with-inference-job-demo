@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - apps/api
+      - apps/api/**
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}-api
