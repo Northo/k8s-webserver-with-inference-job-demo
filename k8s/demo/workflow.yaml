@@ -9,17 +9,15 @@ spec:
       - name: message
         value: hello world
   templates:
-    - name: print-message
+    - name: modify-message
       inputs:
         parameters:
           - name: message
       outputs:
         artifacts:
-          - name: the-script
-            path: /app/message.txt
-            s3:
-              key: "{{workflow.uid}}"
+          - name: modified-message
+            path: /tmp/message-out.txt
       container:
         image: busybox
         command: [sh, -c]
-        args: ["echo {{inputs.parameters.message}} | tee /app/message.txt"]
+        args: ["echo {{inputs.parameters.message}} has been modified | tee /tmp/message-out.txt"]
