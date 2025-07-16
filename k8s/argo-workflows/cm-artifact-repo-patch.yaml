@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: artifact-repositories
+  annotations:
+    workflows.argoproj.io/default-artifact-repository: azure
+data:
+  azure: |
+    archiveLogs: true
+    azure:
+      endpoint: https://k8sdemopeacefuldragon.blob.core.windows.net
+      container: workflows-artifacts
+      blobNameFormat: "{{workflow.name}}/{{pod.name}}"
+      accountKeySecret:
+        name: my-azure-storage-credentials
+        key: account-access-key
