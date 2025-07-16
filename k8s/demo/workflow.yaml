@@ -16,6 +16,7 @@ spec:
       outputs:
         artifacts:
           - name: modified-message
+            globalName: modified-message
             path: /tmp/message-out.txt
       container:
         image: busybox
