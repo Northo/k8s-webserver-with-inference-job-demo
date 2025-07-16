@@ -42,7 +42,7 @@ def get_status(name: str) -> dict:
 
 
 @app.get("/get-outputs")
-def get_outputs(name: str) -> str:
+def get_outputs(name: str) -> dict:
     status = (
         WorkflowsService(host=host, verify_ssl=False)
         .get_workflow(name=name, namespace="argo")
