@@ -13,9 +13,10 @@ spec:
       labels:
         app: job-submitter
     spec:
+      serviceAccountName: storage-account-sa
       containers:
         - name: app
-          image: ghcr.io/northo/k8s-webserver-with-inference-job-demo:sha-4825d89
+          image: ghcr.io/northo/k8s-webserver-with-inference-job-demo-api:sha-50a9981
           env:
             - name: ARGO_HOST
               value: "https://argo-server.argo.svc:2746"
