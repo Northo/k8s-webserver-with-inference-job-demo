@@ -18,6 +18,6 @@ resource "azurerm_federated_identity_credential" "aks_storage_federation" {
   parent_id           = azurerm_user_assigned_identity.aks_storage_identity.id
 
   audience = ["api://AzureADTokenExchange"]
-  subject  = "system:serviceaccount:demo:storage-access-sa"
+  subject  = "system:serviceaccount:demo:demo-api-sa"
   issuer   = azurerm_kubernetes_cluster.aks.oidc_issuer_url
 }

@@ -1,0 +1,24 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: submit-workflows
+  namespace: argo-workflows
+rules:
+  - apiGroups: ["argoproj.io"]
+    resources: ["workflows", "workflowtemplates"]
+    verbs: ["get", "list", "watch", "create", "patch", "update"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: bind-demo-api
+  namespace: argo-workflows
+subjects:
+  - kind: ServiceAccount
+    name: demo-api-sa
+    namespace: demo
+roleRef:
+  kind: Role
+  name: submit-workflows
+  apiGroup: rbac.authorization.k8s.io
