@@ -31,6 +31,8 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
+          context: "{{defaultContext}}:apps/api"
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          context: "{{defaultContext}}:apps/api"
