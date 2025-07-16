@@ -13,7 +13,7 @@ spec:
       labels:
         app: demo-api
     spec:
-      serviceAccountName: demo-api-s
+      serviceAccountName: demo-api-sa
       containers:
         - name: api
           image: ghcr.io/northo/k8s-webserver-with-inference-job-demo-api:sha-50a9981
