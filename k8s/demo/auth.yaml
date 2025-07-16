@@ -21,4 +21,12 @@ roleRef:
   kind: Role
   name: job-submitter
   apiGroup: rbac.authorization.k8s.io
-
+---
+# Service account for Workload Identity
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    azure.workload.identity/client-id: "/subscriptions/08c38d25-f29d-4354-9240-07269d516415/resourceGroups/k8s-demo-application/providers/Microsoft.ManagedIdentity/userAssignedIdentities/aks-storage-identity"
+  name: storage-account-sa
+  namespace: demo

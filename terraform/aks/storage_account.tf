@@ -9,8 +9,3 @@ resource "azurerm_storage_account" "main" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }
-
-output "storage_account_key" {
-  value = azurerm_storage_account.main.primary_access_key
-  sensitive = true
-}
