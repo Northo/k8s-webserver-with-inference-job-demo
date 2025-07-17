@@ -18,7 +18,7 @@ spec:
           service:
             name: argo-server
             port:
-              name: http
+              name: web
   tls:
   - hosts:
     - workflows.20.13.208.23.sslip.io
