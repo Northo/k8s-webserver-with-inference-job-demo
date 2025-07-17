@@ -1,16 +1,21 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: demo-api-ingress
+  name: demo-ingress-tls
   namespace: demo
   annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
     nginx.ingress.kubernetes.io/auth-type: "basic"
     nginx.ingress.kubernetes.io/auth-secret: "basic-auth"
     nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required'
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - demo-api.20.13.208.23.sslip.io
+    secretName: demo-api-tls
   rules:
-  - host: demo-api.135-236-207-61.sslip.io
+  - host: demo-api.20.13.208.23.sslip.io
     http:
       paths:
       - path: /

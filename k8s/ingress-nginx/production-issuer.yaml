@@ -1,0 +1,16 @@
+# staging-issuer.yaml
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-production
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: you@yourdomain.io
+    profile: tlsserver
+    privateKeySecretRef:
+      name: le-production-key
+    solvers:
+    - http01:
+        ingress:
+          ingressClassName: nginx
