@@ -5,6 +5,7 @@ metadata:
   namespace: argo
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/backend-protocol: https  # Probably better to disable TLS in the service, but this works for now
 spec:
   ingressClassName: nginx
   rules:
