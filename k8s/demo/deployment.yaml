@@ -22,7 +22,7 @@ spec:
             - --host
             - "0.0.0.0"
             - --port
-            - "80"
+            - "8000"
             - --root-path=/demo-api
           env:
             - name: ARGO_HOST
