@@ -10,7 +10,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: demo-api.135-236-207-61-sslip.io
+  - host: demo-api.135-236-207-61.sslip.io
     http:
       paths:
       - path: /
