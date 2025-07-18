@@ -6,9 +6,14 @@ services:
       - "8000:8000"
     environment:
       - ARGO_HOST=https://host.docker.internal:2746
+      # - "IDENTITY_ENDPOINT=http://azclicredsproxy:8080/token"
+      # - "IMDS_ENDPOINT=dummy_required_value"
+      - "MSI_ENDPOINT=http://azclicredsproxy:8080/token"
+    command: ["--host", "0.0.0.0", "--port", "8000", "--reload"]
     env_file:
       - .env
-    command: ["--host", "0.0.0.0", "--port", "8000", "--reload"]
+    depends_on:
+    - azclicredsproxy
     develop:
       watch:
         - action: sync
@@ -18,3 +23,9 @@ services:
             - .venv/
         - action: rebuild
           path: ./pyproject.toml 
+  azclicredsproxy:
+    image: workleap/azure-cli-credentials-proxy:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - "${HOST_AZURE_DIR}:/app/.azure/"

@@ -8,6 +8,7 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
+    "azure-identity>=1.23.1",
     "azure-storage-blob>=12.26.0",
     "fastapi>=0.116.1",
     "hera>=5.22.0",
@@ -21,3 +22,9 @@ api = "api:main"
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "ipython>=9.4.0",
+    "ruff>=0.12.4",
+]

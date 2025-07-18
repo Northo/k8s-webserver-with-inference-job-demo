@@ -6,7 +6,7 @@ from fastapi.responses import JSONResponse
 from hera.workflows import Workflow, WorkflowsService
 from hera.workflows.models import WorkflowTemplateRef
 from azure.storage.blob import generate_blob_sas, BlobClient, BlobServiceClient
-from azure.core.credentials import TokenCredential
+from azure.identity import DefaultAzureCredential
 
 app = FastAPI()
 host = os.environ.get("ARGO_HOST", "https://localhost:2746")
@@ -66,13 +66,21 @@ def _generate_blob_download_link(
     account_name: str,
     container: str,
     blob_name: str,
-    account_key: str,
+    credential,
 ) -> str:
+
+    delegation_key = BlobServiceClient(
+        account_url=f"https://{account_name}.blob.core.windows.net",
+        credential=credential,
+    ).get_user_delegation_key(
+        key_start_time=datetime.now(),
+        key_expiry_time=datetime.now() + timedelta(hours=1),
+    )
     sas = generate_blob_sas(
         account_name=account_name,
         container_name=container,
         blob_name=blob_name,
-        account_key=account_key,
+        user_delegation_key=delegation_key,
         permission="r",
         expiry=datetime.now() + timedelta(hours=1),
     )
@@ -100,7 +108,7 @@ def get_outputs(name: str) -> dict:
             azure_storage_account,
             azure_repo_info.container,
             status.outputs.artifacts[0].azure.blob,
-            os.environ.get("AZURE_STORAGE_ACCOUNT_KEY"),
+            DefaultAzureCredential(),
         ),
     }
 
