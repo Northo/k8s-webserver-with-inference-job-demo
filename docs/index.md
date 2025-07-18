@@ -77,3 +77,4 @@ kubectl apply -f k8s/argo-workflows/application.yaml -n argocd
 - https://github.com/argoproj/argocd-example-apps/tree/master
 - https://github.com/argoproj/argoproj-deployments/tree/master
 - https://github.com/markti/terraform-hashitalks-2024/tree/main
+- https://medium.com/@michael.cook.talk/argo-workflows-minio-nginx-8911b988b5c8
