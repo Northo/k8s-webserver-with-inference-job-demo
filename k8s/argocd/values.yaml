@@ -1,0 +1,29 @@
+global:
+  domain: argocd.20.13.208.23.sslip.io
+
+configs:
+  params:
+    server.insecure: true
+
+server:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    extraTls:
+      - hosts:
+        - argocd.20.13.208.23.sslip.io
+        secretName: ingress-argocd-http-tls
+  ingressGrpc:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    extraTls:
+      - hosts:
+        - grpc.argocd.20.13.208.23.sslip.io
+        secretName: ingress-argocd-grpc-tls
