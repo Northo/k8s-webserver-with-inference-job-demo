@@ -16,7 +16,7 @@ spec:
       serviceAccountName: demo-api-sa
       containers:
         - name: api
-          image: ghcr.io/northo/k8s-webserver-with-inference-job-demo-api:sha-34d3007
+          image: ghcr.io/northo/k8s-webserver-with-inference-job-demo-api:sha-542fb5f
           command: ["uvicorn", "main:app"]
           args:
             - --host
