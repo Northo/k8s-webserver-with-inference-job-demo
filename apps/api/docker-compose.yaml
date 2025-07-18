@@ -8,7 +8,7 @@ services:
       - ARGO_HOST=https://host.docker.internal:2746
     env_file:
       - .env
-    command: [".venv/bin/uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+    command: ["--host", "0.0.0.0", "--port", "8000", "--reload"]
     develop:
       watch:
         - action: sync

@@ -13,4 +13,5 @@ ADD . /app
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked
 
-CMD [".venv/bin/uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+ENTRYPOINT [".venv/bin/uvicorn", "api.main:app"]
+CMD ["--host", "0.0.0.0", "--port", "8000"]
