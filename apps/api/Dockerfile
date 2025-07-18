@@ -1,27 +1,16 @@
-# Start from a lightweight Python base
-FROM python:3.11-slim
+FROM python:3.12-slim
+COPY --from=ghcr.io/astral-sh/uv:0.8.0 /uv /uvx /bin/
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
-
-# Install system dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    gcc tk \
-    && rm -rf /var/lib/apt/lists/*
-
-# Set working directory
 WORKDIR /app
 
-# Copy dependencies
-COPY requirements.txt .
+RUN --mount=type=cache,target=/root/.cache/uv \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --locked --no-install-project
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+ADD . /app
 
-# Copy the rest of the application
-COPY . .
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --locked
 
-# Run the app with uvicorn
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
-
+CMD [".venv/bin/uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -26,6 +26,11 @@ spec:
           env:
             - name: ARGO_HOST
               value: "https://argo-server.argo.svc:2746"
+            - name: AZURE_STORAGE_ACCOUNT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: my-azure-storage-credentials
+                  key: account-access-key
           ports:
             - containerPort: 8000
           resources:

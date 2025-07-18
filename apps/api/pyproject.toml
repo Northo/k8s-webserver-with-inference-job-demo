@@ -1,0 +1,23 @@
+[project]
+name = "api"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Thorvald M. Ballestad", email = "thorvald@simula.no" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "azure-storage-blob>=12.26.0",
+    "fastapi>=0.116.1",
+    "hera>=5.22.0",
+    "kubernetes>=33.1.0",
+    "uvicorn>=0.35.0",
+]
+
+[project.scripts]
+api = "api:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
