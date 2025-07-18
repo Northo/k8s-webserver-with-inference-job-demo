@@ -10,11 +10,3 @@ output "storage_account_key" {
 output "aks_storage_identity_id" {
   value = azurerm_user_assigned_identity.aks_storage_identity.id
 }
-
-output "public_ip_address" {
-  value = azurerm_public_ip.aks_ingress.ip_address
-}
-
-output "fqdn" {
-  value = azurerm_public_ip.aks_ingress.fqdn
-}
