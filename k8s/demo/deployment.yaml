@@ -16,7 +16,7 @@ spec:
       serviceAccountName: demo-api-sa
       containers:
         - name: api
-          image: ghcr.io/northo/k8s-webserver-with-inference-job-demo-api:sha-f460441
+          image: ghcr.io/northo/k8s-webserver-with-inference-job-demo-api:sha-740788c
           env:
             - name: ARGO_HOST
               value: "https://argo-server.argo.svc:2746"
