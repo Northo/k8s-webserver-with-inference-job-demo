@@ -11,6 +11,4 @@ data:
       endpoint: https://k8sdemopeacefuldragon.blob.core.windows.net
       container: workflows-artifacts
       blobNameFormat: "{{workflow.name}}/{{pod.name}}"
-      accountKeySecret:
-        name: my-azure-storage-credentials
-        key: account-access-key
+      useSDKCreds: true
