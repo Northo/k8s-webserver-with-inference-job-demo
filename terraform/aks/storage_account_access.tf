@@ -21,3 +21,13 @@ resource "azurerm_federated_identity_credential" "aks_storage_federation" {
   subject  = "system:serviceaccount:demo:demo-api-sa"
   issuer   = azurerm_kubernetes_cluster.aks.oidc_issuer_url
 }
+
+resource "azurerm_federated_identity_credential" "aks_storage_federation_argo_workflows" {
+  name                = "aks-storage-federation-argo-workflows"
+  resource_group_name = azurerm_resource_group.main.name
+  parent_id           = azurerm_user_assigned_identity.aks_storage_identity.id
+
+  audience = ["api://AzureADTokenExchange"]
+  subject  = "system:serviceaccount:argo:default"
+  issuer   = azurerm_kubernetes_cluster.aks.oidc_issuer_url
+}
