@@ -13,7 +13,7 @@ Initial setup:
 - [x] ArgoCD setup
 - [x] Argo Workflows managed by ArgoCD
 - [ ] Pass large data to inference job
-- [ ] Return large data from inference job
+- [x] Return large data from inference job
 
 Long term:
 

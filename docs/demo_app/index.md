@@ -1,4 +1,4 @@
-# The sample app
+# Overview
 
 The sample app we are making, is a simple static front end.
 It allows the user to supply some input, which is handled by an API.
@@ -13,6 +13,6 @@ The components we need, are:
 
 In addition, we will use 
 
-- ArgoCD for continuous deployment
-- Argo Workflows for managing the job execution
-- Azure Kubernetes Service (AKS) for hosting the Kubernetes cluster and managing node pools
+- [ArgoCD for continuous deployment](./platform.md#argocd)
+- [Argo Workflows for managing the job execution](./platform.md#argo-workflows)
+- [Azure Kubernetes Service (AKS) for hosting the Kubernetes cluster and managing node pools](./infrastructure.md)

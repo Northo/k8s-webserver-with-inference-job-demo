@@ -8,3 +8,14 @@ markdown_extensions:
   - pymdownx.superfences
 theme:
   name: material
+nav:
+  - Home: index.md
+  - Kubernetes?:
+    - what_is_k8s/index.md
+    - what_is_k8s/working_with_k8s.md
+  - Demo app:
+    - demo_app/index.md
+    - demo_app/infrastructure.md
+    - demo_app/platform.md
+    - demo_app/the_app.md
+  - lessons.md
