@@ -67,3 +67,24 @@ spec:
         ports:
         - containerPort: 80
 ```
+
+## Helm and Kustomize
+
+You'll probably come over [Helm](https://helm.sh/) and [Kustomize](https://kustomize.io/) in your Kubernetes journey.
+While they are slightly more advanced topics, they are often super helpful, and worth mentioning here.
+
+Helm is a package manager for Kubernetes, which allows you to define, install, and manage applications on Kubernetes using _charts_.
+Charts are collections of Kubernetes manifests that describe an application, and can include templates, dependencies, and configuration options.
+Helm makes it easy to deploy complex applications, and manage their lifecycle.
+For example, to install [Grafana](https://grafana.com/) on your cluster
+
+```sh
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+helm install my-release grafana/grafana
+```
+
+Kustomize is a tool for customizing Kubernetes YAML configurations.
+It allows you to create overlays, which are modifications to existing Kubernetes manifests, without changing the original files.
+This is useful for managing different environments, such as development, staging, and production, without duplicating YAML files.
+In our app, we use Kustomize, though quite trivially.

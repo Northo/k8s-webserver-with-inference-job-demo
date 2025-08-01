@@ -10,7 +10,7 @@ theme:
   name: material
 nav:
   - Home: index.md
-  - Kubernetes?:
+  - Kubernetes:
     - what_is_k8s/index.md
     - what_is_k8s/working_with_k8s.md
   - Demo app:
