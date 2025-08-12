@@ -12,10 +12,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - demo-api.20.13.208.23.sslip.io
+    - demo-api.4.210.9.109.sslip.io
     secretName: demo-api-tls
   rules:
-  - host: demo-api.20.13.208.23.sslip.io
+  - host: demo-api.4.210.9.109.sslip.io
     http:
       paths:
       - path: /
@@ -25,3 +25,4 @@ spec:
             name: demo-api
             port:
               number: 80
+
