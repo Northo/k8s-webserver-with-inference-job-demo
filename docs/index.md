@@ -22,6 +22,8 @@ Long term:
 
 ## Getting started
 
+### Set up AKS
+
 To get started, set up the cluster, navigate to the `infrastructure/terraform` directory, and run the following commands:
 
 ```bash
@@ -36,27 +38,71 @@ See the [Azure documentation](https://learn.microsoft.com/en-us/azure/aks/learn/
 
     Run `source <(kubectl completion zsh)` to enable command completion for `kubectl` in your terminal.
 
-Then set up the ArgoCD (see more details in [the official documentation](https://argo-cd.readthedocs.io/en/stable/getting_started/)):
 
-```bash
-kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+### Set up platform / helpers
 
-# Expose the ArgoCD API server
-kubectl port-forward svc/argocd-server -n argocd 8080:443
+#### Ingress Nginx
+
+Navigate to `k8s/ingress-nginx`
+```sh
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+helm install ingress-nginx ingress-nginx/ingress-nginx \
+    --namespace ingress-nginx --create-namespace -f values.yaml
 ```
 
-and navigate to `https://localhost:8080` in your browser.
+##### Set up cert manager
 
-!!! tip "Notice the explicit `https` protocol"
+Install cert manager
+```sh
+helm install \
+  cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --create-namespace \
+  --set crds.enabled=true
+```
+and create cluster issuers
+
+```sh
+kubectl apply -f production-issuer.yaml -f staging-issuer.yaml
+```
+
+#### ArgoCD
+
+Then set up the ArgoCD (see more details in [the official documentation](https://argo-cd.readthedocs.io/en/stable/getting_started/))
+
+```sh
+IP=$(kubectl -n ingress-nginx get svc ingress-nginx-controller \
+     -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+DOMAIN="argocd.${IP}.sslip.io"
+GRPC_DOMAIN="grpc.${DOMAIN}"
+
+helm upgrade --install argo argo/argo-cd \
+  -n argocd --create-namespace \
+  -f values.yaml \
+  --set-string global.domain="$DOMAIN" \
+  --set-string "server.ingress.hosts[0]=$DOMAIN" \
+  --set-string "server.ingressGrpc.hosts[0]=$GRPC_DOMAIN"
+```
+
 
 !!! note "Getting credentials"
 
     ```bash
     argocd admin initial-password -n argocd
-    argocd login <ARGOCD_SERVER>  # localhost:8080 if port-forwarded as above
+    argocd login <ARGOCD_SERVER>  # grpc.argocd.{IP}.sslip.io if set up as above
     argocd account update-password
     ```
+
+#### Argo Workflows
+
+We'll now set up Argo Workflows:
+
+```bash
+kubectl apply -f k8s/argo-workflows/application.yaml -n argocd
+```
+
+### The Demo application
 
 And we can now finally deploy the demo application:
 
@@ -64,11 +110,6 @@ And we can now finally deploy the demo application:
 kubectl apply -f k8s/demo/application.yaml
 ```
 
-We'll now set up Argo Workflows:
-
-```bash
-kubectl apply -f k8s/argo-workflows/application.yaml -n argocd
-```
 
 
 
