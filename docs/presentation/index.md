@@ -65,3 +65,32 @@ EOF
 echo "Wrote ./demo-admin.kubeconfig"
 ```
 and have uers use the `demo-admin.kubeconfig` as their config file, by doing `export KUBECONFIG=./demo-admin.kubeconfig`.
+
+## Ingress for Grafana
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grafana-ingress
+  namespace: monitoring
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - grafana.4.210.9.109.sslip.io
+    secretName: grafana-ingress-tls
+  rules:
+  - host: grafana.4.210.9.109.sslip.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kube-prometheus-stack-grafana
+            port:
+              name: http-web
+```

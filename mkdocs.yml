@@ -6,8 +6,13 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - footnotes
 theme:
   name: material
+  features:
+    - content.code.copy
 nav:
   - Home: index.md
   - Kubernetes:
@@ -19,4 +24,7 @@ nav:
     - demo_app/platform.md
     - demo_app/the_app.md
   - lessons.md
-  - presentation/index.md
+  - Prpresentation:
+    - presentation/index.md
+    - presentation/copy-paste.md
+    - presentation/exercises.md
