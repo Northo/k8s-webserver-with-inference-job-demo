@@ -133,6 +133,28 @@ Copy the `deployment.yaml` and `service.yaml` from [the copy-paste page](./copy-
 Verify that there is a deployment and service in the namespace, and run `kubectl describe` on the deployment and corresponding replicaset.
 Check with `kubectl get` that the pods are created and ready.
 
+??? tip "Convenience heredocs"
+
+    To avoid creating tons of files for simple operations, [heredocs](https://en.wikipedia.org/wiki/Here_document) can be convenient.
+    Simply do
+    ```sh
+    kubectl apply -f - <<EOF
+    # pod.yaml
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: hello-web
+      labels:
+        app: hello-web
+    spec:
+      containers:
+        - name: hello-web
+          image: nginxdemos/hello:plain-text
+          ports:
+            - containerPort: 80
+    EOF
+    ```
+
 
 ### Exposing our app externally
 
