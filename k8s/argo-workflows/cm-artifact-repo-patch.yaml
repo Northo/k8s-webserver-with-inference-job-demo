@@ -8,7 +8,7 @@ data:
   azure: |
     archiveLogs: true
     azure:
-      endpoint: https://k8sdemopeacefuldragon.blob.core.windows.net
+      endpoint: https://k8sdemocaringman.blob.core.windows.net
       container: workflows-artifacts
       blobNameFormat: "{{workflow.name}}/{{pod.name}}"
       useSDKCreds: true
