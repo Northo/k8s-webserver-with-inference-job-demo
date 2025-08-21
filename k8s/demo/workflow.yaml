@@ -20,6 +20,9 @@ spec:
             path: /tmp/message-out.txt
             archive:
               none: {}
+      metadata:
+        labels:
+          azure.workload.identity/use: "true"
       container:
         image: busybox
         command: [sh, -c]
