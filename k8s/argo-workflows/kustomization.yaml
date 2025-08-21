@@ -1,19 +1,12 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - https://github.com/argoproj/argo-workflows/releases/download/v3.6.10/quick-start-minimal.yaml
-  - ingress.yaml
+- https://github.com/argoproj/argo-workflows/releases/download/v3.6.10/quick-start-minimal.yaml
+- ingress.yaml
+- sa-default.yaml
 patches:
-  - target:
-      group: ""
-      version: v1
-      kind: ConfigMap
-      name: artifact-repositories
-    path: cm-artifact-repo-patch.yaml
-  - target:
-      group: ""
-      version: v1
-      kind: ServiceAccount
-      name: default
-    patch: sa-default-patch.yaml
-
+- path: cm-artifact-repo-patch.yaml
+  target:
+    kind: ConfigMap
+    name: artifact-repositories
+    version: v1
