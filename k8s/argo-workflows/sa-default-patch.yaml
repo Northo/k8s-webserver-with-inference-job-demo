@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: default
+  namespace: argo
+  annotations:
+    azure.workload.identity/client-id: 74fb1b05-9547-4b0f-8987-e96aefc31664
+

@@ -10,3 +10,10 @@ patches:
       kind: ConfigMap
       name: artifact-repositories
     path: cm-artifact-repo-patch.yaml
+  - target:
+      group: ""
+      version: v1
+      kind: ServiceAccount
+      name: default
+    patch: sa-default-patch.yaml
+
