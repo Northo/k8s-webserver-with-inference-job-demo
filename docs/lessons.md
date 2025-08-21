@@ -16,3 +16,20 @@ https://cert-manager.io/docs/releases/release-notes/release-notes-1.18/
 ```
 
 ### Nginx-Ingress vs Ingress-Nginx
+
+## Using manged identities
+
+!!! info TODO
+
+While using manged identities on AKS is in theory simple, I had some issues making it work.
+The documentation from Azure was somewhat confusing, and did not suggest good ways to _test_ if it worked...
+
+Two things must be in place from the cluster side (in addition to setting federation up in Azure)
+
+1. The service account must have the correct client-id as an annotation
+2. The pod must have the label `azure.workload.identity/use=true`
+
+Sometimes, even with this, things seemed to now work.
+I have not investigated thoroughly, but suspect either I set something wrong, or the order matters (like having the pod label during creating, not adding it after).
+
+
